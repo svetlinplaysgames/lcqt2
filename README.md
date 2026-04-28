@@ -81,4 +81,16 @@ Use the AUR package: [lunar-client-qt2](https://aur.archlinux.org/packages/lunar
   ```
   > `./gradlew installDebugDist` and `./gradlew runDebug` do the same thing except they build the rust injector in debug mode.
 
+So this is the end of the original but now i am gonnnna tell you what am i gonna do
+1. Update the Connection Logic (injector/src/main.rs)
+The current code likely uses a very basic WebSocket handshake. I am gonna modernize the headers to make the injector look more like a legitimate DevTools instance.
+
+2. I Fixed the "Payload" Size
+The 10054 error happens specifically when you send the payload. This suggests the launcher is rejecting the size or structure of the JS being injected.
+
+3. Handle the "Multi-Process" Architecture
+Modern Lunar Launcher spawns multiple sub-processes. The injector might be connecting to the "GPU Process" or "Storage Process" instead of the "Renderer Process" (the actual GUI).
+
+4. Use the "Manual Flag" Method
+Instead of letting the injector find the port, you can force the port in your fork's code.
 ###### Copyright © 2023 Nilsen84 - [License](https://raw.githubusercontent.com/Nilsen84/lcqt2/master/LICENSE)
